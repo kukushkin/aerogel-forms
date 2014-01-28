@@ -1,0 +1,7 @@
+<%=
+    begin
+        erb form_builder.template( "field_#{field.type}" ), locals: { field: field, form_builder: form_builder }, layout: false
+    rescue Errno::ENOENT
+        erb form_builder.template( :field_default ), locals: { field: field, form_builder: form_builder }, layout: false
+    end
+%>

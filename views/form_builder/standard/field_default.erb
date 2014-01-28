@@ -1,0 +1,6 @@
+<label for="<%= field.css_id %>"><%= field.label -%>
+<% if field.required? -%>
+<abbr class="required" title="required">*</abbr>
+<% end -%>
+</label>
+<input id="<%= field.css_id %>" type="<%= field.type %>" name="<%= field.html_name %>" value="<%= h field.value %>" <%= field.html_params %> />

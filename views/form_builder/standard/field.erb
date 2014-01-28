@@ -1,0 +1,14 @@
+<div class="field <%= 'field-with-errors' if field.invalid? %>">
+<%=
+    begin
+        erb form_builder.template( "field_#{field.type}" ), locals: { field: field }, layout: false
+    rescue Errno::ENOENT
+        erb form_builder.template( :field_default ), locals: { field: field }, layout: false
+    end
+%>
+<% if field.invalid? %>
+<span class="field-errors">
+    <%= field.errors.join(', ') %>
+</span>
+<% end %>
+</div>

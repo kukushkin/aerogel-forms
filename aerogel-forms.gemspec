@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'aerogel/module123/version'
+require 'aerogel/forms/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "aerogel-module123"
-  spec.version       = Aerogel::Module123::VERSION
+  spec.name          = "aerogel-forms"
+  spec.version       = Aerogel::Forms::VERSION
   spec.authors       = ["Alex Kukushkin"]
   spec.email         = ["alex@kukushk.in"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Aerogel form helpers}
+  spec.summary       = %q{Aerogel form helpers}
   spec.homepage      = ""
   spec.license       = "MIT"
 

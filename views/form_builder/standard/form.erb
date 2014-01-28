@@ -1,0 +1,11 @@
+<div class="form <%= 'form-with-errors' if form.invalid? %>">
+    <form <%= form.html_params %> >
+<% if form.invalid? -%>
+    <div class="form-errors">
+        Form contains errors
+    </div>
+<% end -%>
+        <%= form.render_hiddens %>
+        <%= content %>
+    </form>
+</div>
