@@ -1,4 +1,4 @@
-module Aerogel::Render
+module Aerogel::Forms
 
 # Fieldset represents a set of fields for a nested form object.
 #
@@ -17,4 +17,4 @@ class Fieldset < FormObject
 
 end # class Fieldset
 
-end # module Aerogel::Render
+end # module Aerogel::Forms
