@@ -1,6 +1,5 @@
 <label for="<%= field.css_id %>"><%= field.label -%>
-<% if field.required? -%>
- <abbr class="required" title="required">*</abbr>
+<% if field.required? -%> <abbr class="required" title="required">*</abbr>
 <% end -%>
 </label>
-<input id="<%= field.css_id %>" type="text" name="<%= field.html_name %>" value="<%= h field.value %>" <%= field.html_params %> />
+<input id="<%= field.css_id %>" type="text" name="<%= field.html_name %>" value="<%= h field.value %>" <%= field.html_params %> class="form-control" />

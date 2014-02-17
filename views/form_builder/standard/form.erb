@@ -1,8 +1,16 @@
 <div class="form <%= 'form-with-errors' if form.invalid? %>">
-    <form <%= form.html_params %> >
-<% if form.invalid? -%>
-    <div class="form-errors">
-        Form contains errors
+    <form <%= form.html_params %> role="form">
+<% if form.invalid? && form.object.errors && form.object.errors[:base].size > 0 -%>
+    <div class="alert alert-danger">
+        <% if form.object.errors[:base].size == 1 %>
+            <%= form.object.errors[:base].first %>
+        <% elsif form.object.errors[:base].size > 1 %>
+            <ul>
+                <% form.object.errors[:base].each do |error_message| %>
+                    <li><%= error_message %>
+                <% end %>
+            </ul>
+        <% end %>
     </div>
 <% end -%>
         <%= form.render_hiddens %>

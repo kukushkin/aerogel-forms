@@ -29,11 +29,12 @@ class FormBuilder < FormObject
   # Renders button
   #
   def button( type = :submit, options = {} )
-    if type == :submit
-      tag :input, { type: :submit, value: :submit }.merge(options)
-    else
-      tag :button, type.to_s.humanize, options
-    end
+#    if type == :submit
+#      tag :input, { type: :submit, value: :submit }.merge(options)
+#    else
+#      tag :button, type.to_s.humanize, options
+#    end
+    erb template( :button ), locals: { type: type, options: options, form_builder: self }, layout: false
   end
 
   # Renders a list of buttons

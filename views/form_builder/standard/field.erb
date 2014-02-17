@@ -1,4 +1,4 @@
-<div class="field <%= 'field-with-errors' if field.invalid? %>">
+<div class="form-group field <%= 'has-error' if field.invalid? %>">
 <%=
     begin
         erb form_builder.template( "field_#{field.type}" ), locals: { field: field }, layout: false
@@ -7,7 +7,7 @@
     end
 %>
 <% if field.invalid? %>
-<span class="field-errors">
+<span class="help-block">
     <%= field.errors.join(', ') %>
 </span>
 <% end %>
