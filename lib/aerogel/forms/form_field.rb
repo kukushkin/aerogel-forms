@@ -8,7 +8,7 @@ class FormField
 
   # Known options to a field are processed, the rest (unknown options) goes
   # as html params.
-  KNOWN_OPTIONS = [ :as, :label, :value, :default_value ]
+  KNOWN_OPTIONS = [ :as, :label, :value, :default_value, :hint ]
 
   def initialize( form_object, name, options = {} )
     #unless name.is_a? Symbol
@@ -46,6 +46,15 @@ class FormField
     @label = data_object.fields[name.to_s].label if data_object.respond_to?( :fields ) && data_object.fields[name.to_s]
     @label ||= name.to_s.humanize
     @label
+  end
+
+  # Returns input field hint — a piece of short explanation rendered beside the field.
+  #
+  def hint
+    return @hint if @hint
+    @hint = options[:hint]
+    @hint = data_object.fields[name.to_s].hint if data_object.respond_to?( :fields ) && data_object.fields[name.to_s].respond_to?( :hint )
+    @hint
   end
 
   # Returns placeholder for the field, defaulting to label.

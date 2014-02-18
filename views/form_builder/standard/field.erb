@@ -6,8 +6,11 @@
         erb form_builder.template( :field_default ), locals: { field: field }, layout: false
     end
 %>
+<% if field.hint %>
+<span class="help-block"><%= field.hint %></span>
+<% end %>
 <% if field.invalid? %>
-<span class="help-block">
+<span class="help-block field-errors">
     <%= field.errors.join(', ') %>
 </span>
 <% end %>

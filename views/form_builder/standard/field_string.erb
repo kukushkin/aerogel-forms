@@ -2,4 +2,4 @@
 <% if field.required? -%> <abbr class="required" title="required">*</abbr>
 <% end -%>
 </label>
-<input id="<%= field.css_id %>" type="text" name="<%= field.html_name %>" value="<%= h field.value %>" <%= field.html_params %> class="form-control" />
+<input id="<%= field.css_id %>" type="text" name="<%= field.html_name %>" value="<%= h field.value %>"  <%= field.required? ? 'required' : '' %> <%= field.html_params %> class="form-control" />
