@@ -19,6 +19,7 @@ class FormBuilder < FormObject
     @hiddens = []
     # hidden :object, object
     hidden csrf_field_name, csrf_token if csrf_protected?
+    hidden :id, object.id if object.respond_to? :id
   end
 
   def hidden( name, value )
