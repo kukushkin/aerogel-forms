@@ -30,6 +30,13 @@ class FormBuilder < FormObject
   # Renders button
   #
   def button( type = :submit, options = {} )
+    default_opts = { label: type.to_s.humanize }
+    if String === type
+      type = :submit
+    elsif type == :cancel
+      default_opts[:url] = back
+    end
+    options = default_opts.deep_merge options
 #    if type == :submit
 #      tag :input, { type: :submit, value: :submit }.merge(options)
 #    else
@@ -41,7 +48,7 @@ class FormBuilder < FormObject
   # Renders a list of buttons
   #
   def buttons( *args )
-    args = [:ok, :cancel] if args.size == 0
+    args = [:cancel, :submit] if args.size == 0
     output = ''
     args.each do |b|
       output += button b
