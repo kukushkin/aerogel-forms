@@ -1,0 +1,5 @@
+<label for="<%= field.css_id %>"><%= field.label -%>
+<% if field.required? -%> <abbr class="required" title="required">*</abbr>
+<% end -%>
+</label>
+<textarea id="<%= field.css_id %>" name="<%= field.html_name %>" <%= field.required? ? 'required' : '' %> <%= field.html_params %>  class="form-control"><%= h field.value %></textarea>
