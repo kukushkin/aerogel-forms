@@ -19,11 +19,16 @@ class FormObject < Aerogel::Render::BlockHelper
     self.object = object
     self.parent = parent
     self.relation = relation
+    @first_input = nil
     @options = options
   end
 
   def field( name, options = {} ) # -> Field
     f = data_field name, options
+    unless @first_input
+      @first_input = f
+      f.options[:autofocus] = nil
+    end
     erb template( :field ), locals: { field: f, form_builder: self }, layout: false
   end
 
