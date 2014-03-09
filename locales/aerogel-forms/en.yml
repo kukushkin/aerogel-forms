@@ -1,0 +1,18 @@
+
+en:
+    aerogel:
+        forms:
+            required: Required
+
+            buttons:
+                "ok": OK
+                cancel: Cancel
+                submit: Submit
+                save: Save changes
+                create: Create
+                close: Close
+
+            attributes:
+                email: Email
+                password: Password
+                password_confirmation: Password confirmation

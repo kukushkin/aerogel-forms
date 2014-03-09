@@ -43,8 +43,10 @@ class FormField
   def label
     return @label if @label
     @label = options[:label]
-    @label = data_object.fields[name.to_s].label if data_object.respond_to?( :fields ) && data_object.fields[name.to_s]
-    @label ||= name.to_s.humanize
+    @label ||= data_object.fields[name.to_s].label if data_object.respond_to?( :fields ) && data_object.fields[name.to_s]
+    @label ||= data_object.class.human_attribute_name( name.to_s, default: '' ) if data_object.class.respond_to?( :human_attribute_name )
+    @label = nil if @label == ''
+    @label ||= I18n.t "aerogel.forms.attributes.#{name}", default: name.to_s.humanize
     @label
   end
 

@@ -1,0 +1,18 @@
+
+ru:
+    aerogel:
+        forms:
+            required: Обязательное поле
+
+            buttons:
+                "ok": OK
+                cancel: Отменить
+                submit: Отправить
+                save: Сохранить изменения
+                create: Создать
+                close: Закрыть
+
+            attributes:
+                email: Email
+                password: Пароль
+                password_confirmation: Подтверждение пароля

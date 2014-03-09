@@ -30,8 +30,9 @@ class FormBuilder < FormObject
   # Renders button
   #
   def button( type = :submit, options = {} )
-    default_opts = { label: type.to_s.humanize }
-    if String === type
+    default_opts = {}
+    default_opts[:label] = I18n.t "aerogel.forms.buttons.#{type}", default: type.to_s.humanize
+    if String === type || type == :save || type == :create
       type = :submit
     elsif type == :cancel
       default_opts[:url] = back
