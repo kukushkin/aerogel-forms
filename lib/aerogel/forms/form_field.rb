@@ -8,7 +8,7 @@ class FormField
 
   # Known options to a field are processed, the rest (unknown options) goes
   # as html params.
-  KNOWN_OPTIONS = [ :as, :label, :value, :default_value, :hint ]
+  KNOWN_OPTIONS = [ :as, :label, :value, :default_value, :hint, :required ]
 
   def initialize( form_object, name, options = {} )
     #unless name.is_a? Symbol

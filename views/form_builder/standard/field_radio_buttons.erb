@@ -1,0 +1,22 @@
+<label for="<%= field.css_id %>"><%= field.label -%>
+<% if field.required? -%> <abbr class="required" title="<%= t 'aerogel.forms.required' %>">*</abbr>
+<% end -%>
+</label>
+
+<div class="input-group">
+<div class="btn-group" data-toggle="buttons">
+<% unless field.required? %>
+    <label class="btn btn-default <%= field.value.blank? ? 'active' : '' %>">
+      <input type="radio" class="form-control" name="<%= field.html_name %>" id="<%= field.css_id %>-11"
+        value <%= field.value.blank? ? 'checked=""' : '' %>>
+      <%= icon 'fa-times' %>
+    </label>
+<% end %>
+<% field.options[:values].each_with_index do |value, i| %>
+  <label class="btn btn-default <%= value.to_s == field.value.to_s ? 'active' : '' %>" >
+    <input type="radio" class="form-control" name="<%= field.html_name %>" id="<%= field.css_id %>-11" value="<%= h value %>" <%= value.to_s == field.value.to_s ? 'checked=""' : '' %>>
+    <%= field.options[:labels].present? ? h( field.options[:labels][i] ) : h( value ) %>
+  </label>
+<% end %>
+</div>
+</div>
