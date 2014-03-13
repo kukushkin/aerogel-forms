@@ -25,7 +25,7 @@ class FormObject < Aerogel::Render::BlockHelper
 
   def field( name, options = {} ) # -> Field
     f = data_field name, options
-    unless @first_input
+    unless @first_input || options.key?( :readonly )
       @first_input = f
       f.options[:autofocus] = nil
     end
