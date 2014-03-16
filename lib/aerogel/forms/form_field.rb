@@ -32,7 +32,7 @@ class FormField
     return @type if @type
     @type = options[:as]
     if data_object.respond_to? :fields
-      @type ||= data_object.fields[name.to_s].type.name.downcase.to_sym rescue nil
+      @type ||= data_object.fields[name.to_s].type.name.parameterize.to_sym rescue nil
     end
     @type ||= :string
     @type
@@ -87,9 +87,10 @@ class FormField
 
   # Returns Rack-parseable form field name.
   #
-  def html_name
+  def html_name( use_name = nil )
     prefix = form_object.field_prefix
-    prefix.nil? ? name.to_s : "#{prefix}[#{name}]"
+    use_name ||= name
+    prefix.nil? ? use_name.to_s : "#{prefix}[#{use_name}]"
   end
 
   # Returns unique css id for the field.
