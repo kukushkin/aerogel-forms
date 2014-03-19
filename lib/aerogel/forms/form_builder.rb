@@ -7,6 +7,7 @@ class FormBuilder < FormObject
   DEFAULT_OPTIONS = {
     :style => :standard,
     :method => :post,
+    :multipart => false,
 #    :action => :default_action,
     :html_params => {'accept-charset' => 'UTF-8'}
   }
@@ -14,7 +15,7 @@ class FormBuilder < FormObject
 
   def initialize( object, options, &block )
     super( object, nil, nil, options, &block )
-    @options = DEFAULT_OPTIONS.dup.merge( options )
+    @options = DEFAULT_OPTIONS.dup.deep_merge( options )
     @style = @options[:style].to_sym
     @hiddens = []
     # hidden :object, object
@@ -77,6 +78,7 @@ class FormBuilder < FormObject
       # :action => @options[:action]
     })
     attrs[:action] = @options[:action] if @options[:action]
+    attrs[:enctype] = 'multipart/form-data' if @options[:multipart]
     attrs.map{|n, v| v.nil? ? "#{n}" : "#{n}=\"#{v}\""}.join(" ")
   end
 
