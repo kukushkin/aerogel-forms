@@ -63,8 +63,9 @@ class FormBuilder < FormObject
     # self.instance_exec( self, &STYLES[@style][:form_decorator] )
   end
 
-  def template( name )
-    "form_builder/#{@style}/#{name}".to_sym
+  def template( name, opts = {} )
+    style = opts[:style] || @style
+    "form_builder/#{style}/#{name}".to_sym
   end
 
 # private

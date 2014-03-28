@@ -29,7 +29,7 @@ class FormObject < Aerogel::Render::BlockHelper
       @first_input = f
       f.options[:autofocus] = nil
     end
-    erb template( :field ), locals: { field: f, form_builder: self }, layout: false
+    erb template( :field, f.options ), locals: { field: f, form_builder: self }, layout: false
   end
 
   # Renders fields listed in the arguments.
