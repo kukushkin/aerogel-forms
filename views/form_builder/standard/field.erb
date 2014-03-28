@@ -1,4 +1,6 @@
+<% unless field.type.to_sym == :hidden -%>
 <div class="form-group field <%= 'has-error' if field.invalid? %>">
+<% end -%>
 <%=
     begin
         erb form_builder.template( "field_#{field.type}" ), locals: { field: field }, layout: false
@@ -14,4 +16,6 @@
     <%= field.errors.join(', ') %>
 </span>
 <% end %>
+<% unless field.type.to_sym == :hidden -%>
 </div>
+<% end -%>

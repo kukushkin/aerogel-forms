@@ -56,7 +56,7 @@ class FormObject < Aerogel::Render::BlockHelper
       end
     else
       # create new fieldset for given object with no parent
-      Fieldset.new( name_or_object, nil, nil, options, &block ).render
+      Fieldset.new( name_or_object, options[:parent], options[:name], options, &block ).render
     end
   end
 
