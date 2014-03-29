@@ -89,8 +89,12 @@ class FormObject < Aerogel::Render::BlockHelper
       # root
       object_name
     elsif parent.data_field( relation ).is_collection?
-      # 1 - N
-      parent.field_prefix+"[#{relation}][]"
+      # 1 - N, accepts nested attributes
+      if parent.object.respond_to? :"#{relation}_attributes="
+        parent.field_prefix+"[#{relation}_attributes][]"
+      else
+        parent.field_prefix+"[#{relation}][]"
+      end
     else
       # 1 - 1
       parent.field_prefix+"[#{relation}][]"

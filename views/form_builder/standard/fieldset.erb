@@ -1,6 +1,6 @@
 <fieldset class="<%= fieldset.object_name %> <%= 'fieldset-with-errors' if fieldset.invalid? %>">
 <div class="fieldset">
-    <%= fieldset.hidden :id %>
     <%= content %>
+    <%= fieldset.object.persisted? ? fieldset.hidden(:id) : '' %>
 </div>
 </fieldset>
