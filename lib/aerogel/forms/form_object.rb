@@ -10,7 +10,7 @@ module Aerogel::Forms
 #
 class FormObject < Aerogel::Render::BlockHelper
 
-  attr_accessor :object, :parent, :relation
+  attr_accessor :object, :parent, :relation, :options
 
   RESERVED_FIELDS = ['id', '_id']
 
@@ -43,20 +43,22 @@ class FormObject < Aerogel::Render::BlockHelper
     output
   end
 
-  def fieldset( name_or_object, options = {}, &block )
+  def fieldset( name_or_object, opts = {}, &block )
     # TODO: if name.nil?
     if name_or_object.is_a? Symbol
       name = name_or_object
       if data_field( name ).is_collection?
+        i = 0
         object.send( name ).each do |o|
-          Fieldset.new( o, self, name, options, &block ).render
+          Fieldset.new( o, self, name, opts.merge( object_index: i ), &block ).render
+          i += 1
         end
       else
-        Fieldset.new( object.send( name ), self, name, options, &block ).render
+        Fieldset.new( object.send( name ), self, name, opts, &block ).render
       end
     else
       # create new fieldset for given object with no parent
-      Fieldset.new( name_or_object, options[:parent], options[:name], options, &block ).render
+      Fieldset.new( name_or_object, opts[:parent], opts[:name], opts, &block ).render
     end
   end
 
@@ -91,9 +93,9 @@ class FormObject < Aerogel::Render::BlockHelper
     elsif parent.data_field( relation ).is_collection?
       # 1 - N, accepts nested attributes
       if parent.object.respond_to? :"#{relation}_attributes="
-        parent.field_prefix+"[#{relation}_attributes][]"
+        parent.field_prefix+"[#{relation}_attributes][#{options[:object_index]}]"
       else
-        parent.field_prefix+"[#{relation}][]"
+        parent.field_prefix+"[#{relation}][#{options[:object_index]}]"
       end
     else
       # 1 - 1

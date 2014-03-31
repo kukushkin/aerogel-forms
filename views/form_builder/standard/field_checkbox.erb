@@ -1,6 +1,14 @@
 <div class="checkbox">
     <label for="<%= field.css_id %>"><%= field.label -%>
-        <input id="<%= field.css_id %>" type="<%= field.type %>" name="<%= field.html_name %>" value="<%= h field.value %>" <%= field.html_params %> />
+        <!-- input id="<%= field.css_id %>-hidden" type="hidden" name="<%= field.html_name %>"
+            value="<%= field.options[:false_value] ? h(field.options[:false_value]) : '' %>"
+        / -->
+
+        <input id="<%= field.css_id %>" type="checkbox" name="<%= field.html_name %>"
+            value="<%= field.options[:true_value] ? h(field.options[:true_value]) : 'true' %>"
+            <%= field.value ? 'checked' : '' %>
+            <%= field.html_params %>
+        />
     </label>
 
 </div>
