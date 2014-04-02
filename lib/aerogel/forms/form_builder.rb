@@ -16,7 +16,7 @@ class FormBuilder < FormObject
   def initialize( object, options, &block )
     super( object, nil, nil, options, &block )
     @hiddens = []
-    # hidden :object, object
+    @options = DEFAULT_OPTIONS.dup.deep_merge( options )
     hidden csrf_field_name, csrf_token if csrf_protected?
     hidden :id, object.id if object.respond_to? :id
   end
