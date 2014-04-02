@@ -10,17 +10,23 @@ module Aerogel::Forms
 #
 class FormObject < Aerogel::Render::BlockHelper
 
-  attr_accessor :object, :parent, :relation, :options
+  attr_accessor :object, :parent, :relation, :options, :style, :field_prefix
 
   RESERVED_FIELDS = ['id', '_id']
+
+  DEFAULT_OPTIONS = {
+    :style => :standard
+  }
 
   def initialize( object, parent = nil, relation = nil, options = {}, &block )
     super( &block )
     self.object = object
     self.parent = parent
     self.relation = relation
+    @options = DEFAULT_OPTIONS.dup.deep_merge( options )
+    @style = @options[:style].to_sym
     @first_input = nil
-    @options = options
+    @field_prefix = options[:field_prefix] || make_field_prefix
   end
 
   def field( name, options = {} ) # -> Field
@@ -50,15 +56,19 @@ class FormObject < Aerogel::Render::BlockHelper
       if data_field( name ).is_collection?
         i = 0
         object.send( name ).each do |o|
-          Fieldset.new( o, self, name, opts.merge( object_index: i ), &block ).render
+          Fieldset.new( o, self, name, opts.merge( object_index: o.id ), &block ).render
           i += 1
         end
       else
+        o = object.send( name )
+        opts[:object_index] ||= o.id
         Fieldset.new( object.send( name ), self, name, opts, &block ).render
       end
     else
       # create new fieldset for given object with no parent
-      Fieldset.new( name_or_object, opts[:parent], opts[:name], opts, &block ).render
+      o = name_or_object
+      opts[:object_index] ||= o.id
+      Fieldset.new( name_or_object, opts[:parent] || self, opts[:name], opts, &block ).render
     end
   end
 
@@ -84,25 +94,6 @@ class FormObject < Aerogel::Render::BlockHelper
     parent.nil?
   end
 
-  # Returns field prefix for the current form object.
-  #
-  def field_prefix
-    if root_object?
-      # root
-      object_name
-    elsif parent.data_field( relation ).is_collection?
-      # 1 - N, accepts nested attributes
-      if parent.object.respond_to? :"#{relation}_attributes="
-        parent.field_prefix+"[#{relation}_attributes][#{options[:object_index]}]"
-      else
-        parent.field_prefix+"[#{relation}][#{options[:object_index]}]"
-      end
-    else
-      # 1 - 1
-      parent.field_prefix+"[#{relation}][]"
-    end
-  end
-
   def data_field( name, options = {} )
     FormField.new self, name, options
   end
@@ -125,6 +116,34 @@ class FormObject < Aerogel::Render::BlockHelper
   def invalid?
     not valid?
   end
+
+  def template( name, opts = {} )
+    style = opts[:style] || @style
+    "form_builder/#{style}/#{name}".to_sym
+  end
+
+
+private
+
+  # Generates field prefix for object fields.
+  #
+  def make_field_prefix
+    if root_object?
+      # root
+      object_name
+    elsif parent.data_field( relation ).is_collection?
+      # 1 - N, accepts nested attributes
+      if parent.object.respond_to? :"#{relation}_attributes="
+        parent.field_prefix+"[#{relation}_attributes][#{options[:object_index]}]"
+      else
+        parent.field_prefix+"[#{relation}][#{options[:object_index]}]"
+      end
+    else
+      # 1 - 1
+      parent.field_prefix+"[#{relation}][]"
+    end
+  end
+
 
 end # class FormObject
 

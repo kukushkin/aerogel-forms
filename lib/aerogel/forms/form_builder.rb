@@ -2,7 +2,7 @@ module Aerogel::Forms
 
 class FormBuilder < FormObject
 
-  attr_accessor :options, :content, :style
+  attr_accessor :options, :content
 
   DEFAULT_OPTIONS = {
     :style => :standard,
@@ -15,8 +15,6 @@ class FormBuilder < FormObject
 
   def initialize( object, options, &block )
     super( object, nil, nil, options, &block )
-    @options = DEFAULT_OPTIONS.dup.deep_merge( options )
-    @style = @options[:style].to_sym
     @hiddens = []
     # hidden :object, object
     hidden csrf_field_name, csrf_token if csrf_protected?
@@ -61,11 +59,6 @@ class FormBuilder < FormObject
   def wrap( content )
     erb :"form_builder/#{@style}/form", locals: { form: self, content: content }, layout: false
     # self.instance_exec( self, &STYLES[@style][:form_decorator] )
-  end
-
-  def template( name, opts = {} )
-    style = opts[:style] || @style
-    "form_builder/#{style}/#{name}".to_sym
   end
 
 # private
