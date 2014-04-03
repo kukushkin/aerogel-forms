@@ -23,8 +23,10 @@ class FormObject < Aerogel::Render::BlockHelper
     self.object = object
     self.parent = parent
     self.relation = relation
-    @options = DEFAULT_OPTIONS.dup.deep_merge( options )
-    @style = ( !parent.nil? && parent.style ) || @options[:style].to_sym
+    default_options = DEFAULT_OPTIONS.dup
+    default_options[:style] = parent.style unless parent.nil?
+    @options = default_options.deep_merge( options )
+    @style = @options[:style].to_sym
     @first_input = nil
     @field_prefix = options[:field_prefix] || make_field_prefix
   end
