@@ -3,9 +3,9 @@
 <% end -%>
 <%=
     begin
-        erb form_builder.template( "field_#{field.type}" ), locals: { field: field }, layout: false
+        erb form_builder.template( "field_#{field.type}", field.options ), locals: { field: field }, layout: false
     rescue Errno::ENOENT
-        erb form_builder.template( :field_default ), locals: { field: field }, layout: false
+        erb form_builder.template( :field_default, field.options ), locals: { field: field }, layout: false
     end
 %>
 <% if field.hint %>
