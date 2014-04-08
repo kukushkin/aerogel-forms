@@ -17,6 +17,7 @@ class FormBuilder < FormObject
     super( object, nil, nil, options, &block )
     @hiddens = []
     @options = DEFAULT_OPTIONS.dup.deep_merge( options )
+    @options[:cancel_url] ||= back
     hidden csrf_field_name, csrf_token if csrf_protected?
     hidden :id, object.id if object.respond_to? :id
   end
@@ -29,20 +30,8 @@ class FormBuilder < FormObject
   # Renders button
   #
   def button( type = :submit, options = {} )
-    default_opts = {}
-    default_opts[:label] = I18n.t "aerogel.forms.buttons.#{type}", default: type.to_s.humanize
-    if String === type || type == :save || type == :create
-      type = :submit
-    elsif type == :cancel
-      default_opts[:url] = back
-    end
-    options = default_opts.deep_merge options
-#    if type == :submit
-#      tag :input, { type: :submit, value: :submit }.merge(options)
-#    else
-#      tag :button, type.to_s.humanize, options
-#    end
-    erb template( :button ), locals: { type: type, options: options, form_builder: self }, layout: false
+    b = FormButton.new self, type, options
+    erb template( :button ), locals: { button: b, type: b.type, options: b.options, form_builder: self }, layout: false
   end
 
   # Renders a list of buttons

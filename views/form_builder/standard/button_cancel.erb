@@ -1,5 +1,5 @@
-<% if options[:url].present? %>
-    <%= link_to options[:url], options[:label], type: "cancel", class: "btn btn-default" %>
+<% if button.options[:url].present? %>
+    <%= link_to button.options[:url], button.label, type: "cancel", class: "btn btn-default" %>
 <% else %>
-    <button type="<%= type %>" class="btn btn-default"><%= options[:label] %></button>
+    <button type="<%= button.type %>" class="btn btn-default" <%= button.html_params %> ><%= button.label %></button>
 <% end %>

@@ -8,7 +8,7 @@ class FormField
 
   # Known options to a field are processed, the rest (unknown options) goes
   # as html params.
-  KNOWN_OPTIONS = [ :as, :label, :value, :default_value, :hint, :required ]
+  KNOWN_OPTIONS = [ :as, :label, :value, :default_value, :hint, :required, :style, :html_params ]
 
   def initialize( form_object, name, options = {} )
     #unless name.is_a? Symbol
@@ -102,7 +102,8 @@ class FormField
   # Returns a string of html params for the <input ...> tag.
   #
   def html_params
-    attrs = @options.except *KNOWN_OPTIONS
+    attrs = @options.except( *KNOWN_OPTIONS )
+    attrs = attrs.deep_merge( @options[:html_params] ) if @options.key? :html_params
     attrs.map{|n, v| v.nil? ? "#{n}" : "#{n}=\"#{v}\""}.join(" ")
   end
 

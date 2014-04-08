@@ -11,6 +11,7 @@ en:
                 save: Save changes
                 create: Create
                 close: Close
+                select: Select
 
             attributes:
                 email: Email

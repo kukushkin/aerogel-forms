@@ -1,11 +1,11 @@
 <%=
     begin
         erb form_builder.template( "button_#{type}" ), locals: {
-            type: type, options: options, form_builder: form_builder
+            button: button, type: type, options: options, form_builder: form_builder
         }, layout: false
     rescue Errno::ENOENT
         erb form_builder.template( :button_default ), locals: {
-            type: type, options: options, form_builder: form_builder
+            button: button, type: type, options: options, form_builder: form_builder
         }, layout: false
     end
 %>

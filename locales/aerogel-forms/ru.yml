@@ -11,6 +11,7 @@ ru:
                 save: Сохранить изменения
                 create: Создать
                 close: Закрыть
+                select: Выбрать
 
             attributes:
                 email: Email

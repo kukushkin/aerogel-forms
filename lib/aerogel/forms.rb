@@ -1,6 +1,7 @@
 require 'aerogel/core'
 require "aerogel/forms/version"
 require 'aerogel/forms/form_object'
+require 'aerogel/forms/form_button'
 require 'aerogel/forms/form_field'
 require 'aerogel/forms/fieldset'
 require "aerogel/forms/form_builder"
