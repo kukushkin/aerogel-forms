@@ -1,5 +1,5 @@
 <div class="checkbox">
-    <label for="<%= field.css_id %>"><%= field.label -%>
+    <label for="<%= field.css_id %>">
         <!-- input id="<%= field.css_id %>-hidden" type="hidden" name="<%= field.html_name %>"
             value="<%= field.options[:false_value] ? h(field.options[:false_value]) : '' %>"
         / -->
@@ -9,6 +9,8 @@
             <%= field.value ? 'checked' : '' %>
             <%= field.html_params %>
         />
+
+        <%= field.label -%>
     </label>
 
 </div>
